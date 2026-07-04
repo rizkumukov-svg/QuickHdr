@@ -20,7 +20,7 @@ jobs:
         run: dotnet restore QuickHdr/QuickHdr.csproj
 
       - name: Build QuickHdr
-        run: dotnet publish QuickHdr/QuickHdr.csproj -c Release -r win-x64 --self-contained false -o publish
+        run: dotnet publish QuickHdr/QuickHdr.csproj -c Release -r win-x64 --self-contained true -o publish
 
       - name: Upload compiled application
         uses: actions/upload-artifact@v4
