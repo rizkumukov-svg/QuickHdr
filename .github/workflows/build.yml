@@ -1,0 +1,29 @@
+name: Build QuickHdr
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 5
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 5.0.x
+
+      - name: Restore dependencies
+        run: dotnet restore QuickHdr/QuickHdr.csproj
+
+      - name: Build QuickHdr
+        run: dotnet publish QuickHdr/QuickHdr.csproj -c Release -r win-x64 --self-contained false -o publish
+
+      - name: Upload compiled application
+        uses: actions/upload-artifact@v4
+        with:
+          name: QuickHdr-win-x64
+          path: publish
